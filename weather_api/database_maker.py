@@ -18,11 +18,11 @@ def database_maker(fro: datetime.date, to: datetime.date, timestep: datetime.tim
     while fro <= to:
         resp = get_weather_timeserie(fro, min(fro + timestep, to), location = location)
         fro += timestep + MIN_DELTA
-        
+
         o = resp.json()['observations']
         for e in o:
             header = ['temp', 'rh', 'wc', 'feels_like', 'wx_phrase', 'valid_time_gmt']
-            print(','.join([location.id] + [feature_handler(attr, e[attr], location) for attr in header]))
+            print(','.join([str(1)] + [location.id] + [feature_handler(attr, e[attr], location) for attr in header]), flush = True)
 
         time.sleep(60 / RATE_PER_MINUTE)
     return resp

@@ -1,6 +1,17 @@
 import weather_api
 import datetime
-fro = datetime.date(2023, 11, 1)
-to = datetime.date(2023, 11, 5)
-ts = datetime.timedelta(days = 2)
-weather_api.database_maker.database_maker(fro, to, ts, weather_api.weather_api.Location.NEW_YORK_CITY)
+import argparse
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Weather database generator.')
+
+    parser.add_argument('-f', '--fro', type=str, help='Starting date of the scrapping in format "%Y-%m-%d"')
+    parser.add_argument('-t', '--to', type=str, help='Ending date of the scrapping in format "%Y-%m-%d"')
+    parser.add_argument('-ts', '--time-step', type=int, help='Timestep of the queries in days')
+
+    args = parser.parse_args()
+
+    fro = datetime.datetime.strptime(args.fro, "%Y-%m-%d").date()
+    to = datetime.datetime.strptime(args.to, "%Y-%m-%d").date()
+    ts = datetime.timedelta(days = args.time_step)
+    weather_api.database_maker.database_maker(fro, to, ts, weather_api.weather_api.Location.NEW_YORK_CITY)

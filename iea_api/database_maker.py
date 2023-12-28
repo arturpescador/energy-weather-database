@@ -20,7 +20,7 @@ def database_maker(fro: datetime.date, to: datetime.date, timestep: datetime.tim
         o = resp.json()
         for e in o:
             header = list(e.keys())
-            print(','.join([feature_handler(attr, e[attr]) for attr in header]))
+            print(','.join([str(0)] + [feature_handler(attr, e[attr]) for attr in header]), flush=True)
 
         time.sleep(60 / RATE_PER_MINUTE)
     return resp
