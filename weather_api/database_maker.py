@@ -26,3 +26,28 @@ def database_maker(fro: datetime.date, to: datetime.date, timestep: datetime.tim
 
         time.sleep(60 / RATE_PER_MINUTE)
     return resp
+
+def rdbms_feature_handler(attr, val, location: Location):
+    if attr == 'valid_time_gmt':
+        return datetime.datetime.fromtimestamp(val, tz=location.tz).astimezone(datetime.timezone.utc).isoformat()
+
+    return val
+
+def rdbms_maker(fro: datetime.date, to: datetime.date, timestep: datetime.timedelta, location: Location, cursor):
+    assert timestep >= MIN_DELTA, "timestep is smaller than the minimum timestep allowed by the weather API"
+    while fro <= to:
+        resp = get_weather_timeserie(fro, min(fro + timestep, to), location = location)
+        fro += timestep + MIN_DELTA
+
+        o = resp.json()['observations']
+        batch = []
+        for e in o:
+            header = ['temp', 'rh', 'wc', 'feels_like', 'wx_phrase', 'valid_time_gmt']
+            sample = [location.id] + [rdbms_feature_handler(attr, e[attr], location) for attr in header]
+            batch.append(sample)
+
+        insert_query = """
+            INSERT INTO Weather (location, temp, rh, wc, feels_like, wx_phrase, valid_time_gmt)
+            VALUES (%s, %s, %s, %s, %s, %s, %s);
+            """
+        cursor.executemany(insert_query, batch)
