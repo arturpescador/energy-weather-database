@@ -1,6 +1,12 @@
 import sys
 import datetime
 
+def to_float(s):
+    try:
+        return float(s)
+    except ValueError:
+        return float("nan")
+
 def main():
     for line in sys.stdin:
         key, value = line.strip("\n").split("@")
@@ -17,11 +23,11 @@ def main():
 
             if li[0] == "0":
                 for i, j in enumerate(IEA_mean_idx):
-                    IEA_means[i] += float(li[j])
+                    IEA_means[i] += to_float(li[j])
                 IEA_nb += 1
             else:
                 for i, j in enumerate(WEATHER_mean_idx):
-                    WEATHER_means[i] += float(li[j])
+                    WEATHER_means[i] += to_float(li[j])
                 WEATHER_nb += 1
 
         for i in range(len(IEA_means)):
