@@ -11,7 +11,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    fro = datetime.datetime.strptime(args.fro, "%Y-%m-%d").date()
-    to = datetime.datetime.strptime(args.to, "%Y-%m-%d").date()
-    ts = datetime.timedelta(days = args.time_step)
-    weather_api.database_maker.database_maker(fro, to, ts, weather_api.weather_api.Location.NEW_YORK_CITY)
+    for location in weather_api.weather_api.Location:
+        fro = datetime.datetime.strptime(args.fro, "%Y-%m-%d").date()
+        to = datetime.datetime.strptime(args.to, "%Y-%m-%d").date()
+        ts = datetime.timedelta(days = args.time_step)
+        weather_api.database_maker.database_maker(fro, to, ts, location)
