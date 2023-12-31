@@ -3,3 +3,5 @@
 python ./energy-weather-database/mapreduce/database_merger/mapper.py | \
 python ./energy-weather-database/mapreduce/database_merger/shuffler.py | \
 python ./energy-weather-database/mapreduce/database_merger/reducer.py
+
+python ./energy-weather-database/quality_assessment.py merged_data.csv
