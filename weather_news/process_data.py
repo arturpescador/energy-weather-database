@@ -83,7 +83,6 @@ def create_csv_file(processed_data, output_filename):
     # writing the extracted data to a csv file
     with open(output_filename, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=['date', 'location', 'news'])
-        writer.writeheader()
         writer.writerows(formatted_news_data)    
 
 
