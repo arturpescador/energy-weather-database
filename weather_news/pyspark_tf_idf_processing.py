@@ -1,6 +1,5 @@
-# $spark-submit tf_idf_processing.py
-# $python3 tf_idf_processing.py
-from pyspark.sql import SparkSession
+# $spark-submit pyspark_tf_idf_processing.py
+# $python3 pyspark_tf_idf_processing.py
 import re
 import math
 import Stemmer
@@ -108,7 +107,6 @@ def main():
     args = parser.parse_args()
     csv_parser(args.input_csv,args.output_txt)
     rdd = sc.textFile(args.output_txt)
-    rdd.map(lambda x: x.split("\t"))
     length = rdd.map(lambda x: x.split("\t")).count()
     new_column_values = sc.parallelize(range(length)).collect()
 
