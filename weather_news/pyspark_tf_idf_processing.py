@@ -1,11 +1,13 @@
-# $spark-submit pyspark_tf_idf_processing.py
-# $python3 pyspark_tf_idf_processing.py
+# $spark-submit tf_idf_processing.py
+# $python3 tf_idf_processing.py
+from pyspark.sql import SparkSession
 import re
 import math
 import Stemmer
 import csv
 import argparse
 from pyspark import SparkContext
+import pandas as pd
 
 def csv_parser(input_file,output_file):
     region_data = {}
@@ -99,6 +101,8 @@ def reducer_count(key,values):
 
 def main():
     sc=SparkContext()
+    spark = SparkSession(sc)
+    sc = spark.sparkContext
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-i","--input_csv",default = "weather_data.csv")
@@ -107,8 +111,32 @@ def main():
     args = parser.parse_args()
     csv_parser(args.input_csv,args.output_txt)
     rdd = sc.textFile(args.output_txt)
+    rdd.map(lambda x: x.split("\t"))
     length = rdd.map(lambda x: x.split("\t")).count()
     new_column_values = sc.parallelize(range(length)).collect()
+
+    rdd_id = rdd.map(lambda x: x.split("\t"))\
+        .zipWithIndex().map(lambda x: ( new_column_values[x[1]],x[0]))
+    df_id = rdd_id.toDF()
+
+    selected_df_1 = df_id.select("_1")
+    rows_list_1 = selected_df_1.collect()
+
+    column_1 = []
+    for row in rows_list_1:
+        column_1.append(row[0])
+        
+    selected_df_2 = df_id.select("_2")
+    rows_list_2 = selected_df_2.collect()
+
+    column_2 = []
+    for row in rows_list_2:
+        column_2.append(row[0][0][:25].split('"')[0])
+
+    data_key_region = {"key_id": column_1, "region": column_2}
+    df_key_region = pd.DataFrame(data_key_region)
+    df_key_region.to_csv("key_region.csv", index=False)
+
 
     rdd.map(lambda x: x.split("\t"))\
         .zipWithIndex().map(lambda x: ( new_column_values[x[1]],x[0]))\
