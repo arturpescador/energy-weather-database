@@ -80,11 +80,14 @@ def create_csv_file(processed_data, output_filename):
                     'news': news_title.strip()
                 })
 
+                   
     # writing the extracted data to a csv file
     with open(output_filename, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=['date', 'location', 'news'])
-        writer.writerows(formatted_news_data)    
-
+        # writer.writerows(formatted_news_data) 
+        for row in formatted_news_data: # in the place of write directly, we are replacing the \u00a0 with space
+            row['news'] = row['news'].replace(r'\u00a0', ' ') 
+            writer.writerow(row)
 
 def main():
     input_file_path = sys.argv[1]  # INPUT FILE NAME (.JSON)
