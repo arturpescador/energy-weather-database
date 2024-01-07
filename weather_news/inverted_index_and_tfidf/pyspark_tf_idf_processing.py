@@ -105,7 +105,7 @@ def main():
     sc = spark.sparkContext
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i","--input_csv",default = "weather_data.csv")
+    parser.add_argument("-i", "--input_csv", default="../weather_data.csv")
     parser.add_argument("-o", "--output_txt", default="output_weather_data.txt")
 
     args = parser.parse_args()
