@@ -3,6 +3,7 @@ from psycopg2 import sql
 import json
 import argparse
 import datetime
+import os
 
 import weather_api
 import iea_api
@@ -16,6 +17,8 @@ if __name__ == "__main__":
     parser.add_argument('-db', '--database-name', type=str, help='Name of database in PostgreSQL', default='energy_weather_db')
 
     args = parser.parse_args()
+
+    assert os.path.exists("db_config.json"), "Must create db_config.json file with psql server credentials."
 
     with open('db_config.json', 'r') as config_file:
         config = json.load(config_file)
@@ -82,7 +85,6 @@ if __name__ == "__main__":
         # Create news table
         create_table_query = """
             CREATE TABLE News (
-                id SERIAL PRIMARY KEY,
                 date VARCHAR(100),
                 city VARCHAR(100),
                 title TEXT
@@ -90,10 +92,17 @@ if __name__ == "__main__":
             """
         cur.execute(create_table_query)
 
-        # copy_query = """
-        #     COPY News(id, date, city, title)
-        #     FROM ./weather_news/
-        #     """
+        cur_path = os.getcwd()
+        news_data_path = os.path.join(cur_path, "dataset", "weather_data.csv")
+        copy_query = f"""
+            COPY News(date, city, title)
+            FROM '{news_data_path}'
+            DELIMITER ','
+            CSV HEADER;
+            """
+        cur.execute(copy_query)
+
+        print("Table News created successfully.")
 
     except psycopg2.Error as e:
         print(f"An error occurred: {e}")

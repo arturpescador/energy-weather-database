@@ -20,6 +20,8 @@ This repository is organized as follows:
 
 - `generate_weather.py`: A Python script to generate weather-related datasets.
 
+- `generate_psql_db.py`: A Python script to generate a PostgreSQL database with weather, energy and news data.
+
 - `main.sh`: Main shell script to run the entire data acquisition pipeline.
 
 - `merged_data.csv`: The resulting CSV file after merging weather and energy data.

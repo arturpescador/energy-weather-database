@@ -22,3 +22,6 @@ mv weather_data.csv ../dataset/
 
 # Return to the original directory
 cd ..
+
+# Generate Relational Database (Needs db_config.json in root with psql credentials)
+python ./generate_psql_db.py -f 2023-12-20 -t 2023-12-25 -ts 2
