@@ -16,7 +16,7 @@ This repository is organized as follows:
 
 - `weather_news`: Scripts used to scrape and process weather news data.
 
-- `weather_scraper`: Scripts used to do web scraping and extract historical weather news data.
+- `weather_scraper`: Scripts employed for web scraping and extracting historical weather data. Initially designed for scraping www.wunderground.com, we altered our approach, and ultimately, these scripts were not utilized in the final solution.
 
 - `generate_iea.py`: A Python script to generate datasets from the IEA API.
 
