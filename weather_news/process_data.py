@@ -67,19 +67,34 @@ def extract_and_format_date(news_title):
     else:
         return None
     
+#### We want to extract the data and add it in a new column and remove it form the news description
+def extract_exact_date(news_title):
+    date_pattern = re.compile(
+        r'\b(?:\d{1,2}\s)?(?:January|February|March|April|May|June|July|August|September|October|November|December)\s\d{1,4},?\s?\d{4}\b')
+    match = date_pattern.search(news_title)
+    if match:
+        return match.group(0).strip()
+    else:
+        return None
+    
 def create_csv_file(processed_data, output_filename):
     # extracting and formatting dates for each entr
     formatted_news_data = []
     for location, news_list in processed_data.items():
         for news_title in news_list['news']:
+            date = extract_exact_date(news_title)
             formatted_date = extract_and_format_date(news_title)
-            if formatted_date:
-                formatted_news_data.append({
-                    'date': formatted_date,
-                    'location': location,
-                    'news': news_title.strip()
-                })
+            if date and formatted_date:
+                news_without_date = news_title.replace(date, '').strip()
+                news_without_date = news_without_date.replace("\"", '').strip() # remove " from beginning and end of the string
+                news_without_date = news_without_date[:-1] # remove , from the end of the string
 
+                if len(news_without_date) > 0: # only where the news is not empty
+                    formatted_news_data.append({
+                        'date': formatted_date,
+                        'location': location,
+                        'news': news_without_date  # 'news' column without the exact date
+                    })
                    
     # writing the extracted data to a csv file
     with open(output_filename, mode='w', newline='', encoding='utf-8') as file:
