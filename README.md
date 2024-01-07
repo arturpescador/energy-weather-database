@@ -6,7 +6,7 @@ This project aims to develop a well-structured dataset.
 
 This repository is organized as follows:
 
-- dataset: Contains both data sets: `energy_weather_related.csv` and `weather_events.csv`
+- dataset: Contains three data sets: `energy_weather_related.csv` , `weather_events.csv` and `Event_WeatherData.csv` ('Event_WeatherData.csv' is explained in the section of "Enrich weather news with weather measurement data" of the report)
 
 - `iea_api`: Contains scripts for accessing the International Energy Agency's API for energy consumption data.
 
@@ -14,7 +14,9 @@ This repository is organized as follows:
 
 - `weather_api`: Scripts for fetching weather data from an external API.
 
-- `weather_news`: Scripts used to scrape and process weather news data.
+- `weather_news`: Scripts used to scrape and process weather news data ; And the Scripts to generate TF-IDF index and inverted index with pyspark and MapReduce.
+
+- `Merge_Dataset_NewAPI_and_WeatherNews`: Contains the scripts to generate `Event_WeatherData.csv` from ACIS Web Services API calls and `weather_data.csv`; Also contains inverted-index_table.csv and tfid_table.csv.
 
 - `weather_scraper`: Scripts employed for web scraping and extracting historical weather data. Initially designed for scraping www.wunderground.com, we altered our approach, and ultimately, these scripts were not utilized in the final solution.
 
