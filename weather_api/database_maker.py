@@ -42,12 +42,12 @@ def rdbms_maker(fro: datetime.date, to: datetime.date, timestep: datetime.timede
         o = resp.json()['observations']
         batch = []
         for e in o:
-            header = ['temp', 'rh', 'wc', 'feels_like', 'wx_phrase', 'valid_time_gmt']
+            header = ['temp', 'rh', 'feels_like', 'wx_phrase', 'valid_time_gmt']
             sample = [location.id] + [rdbms_feature_handler(attr, e[attr], location) for attr in header]
             batch.append(sample)
 
         insert_query = """
-            INSERT INTO Weather (location, temp, rh, wc, feels_like, wx_phrase, valid_time_gmt)
-            VALUES (%s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO Weather (location, temp, rh, feels_like, wx_phrase, valid_time_gmt)
+            VALUES (%s, %s, %s, %s, %s, %s);
             """
         cursor.executemany(insert_query, batch)

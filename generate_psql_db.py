@@ -46,7 +46,6 @@ if __name__ == "__main__":
                 location VARCHAR(100),
                 temp INT,
                 rh INT,
-                wc INT,
                 feels_like INT,
                 wx_phrase VARCHAR(100),
                 valid_time_gmt VARCHAR(100)
