@@ -30,7 +30,7 @@ This repository is organized as follows:
 
 ## Contributors
 
-This project was developed by the following group members as part of the Data Aquisition, Extraction, and Storage at Université Paris Dauphine - PSL for the academic year 2023/2024:
+This project was developed by the following group members as part of the Data Aquisition, Extraction, and Storage course at Université Paris Dauphine - PSL for the academic year 2023/2024:
 
 - Artur Dandolini Pescador
 - Caio Azevedo
@@ -39,4 +39,8 @@ This project was developed by the following group members as part of the Data Aq
 
 ## Usage
 
+To run the entire pipeeline, simply run the following command:
+
 ```chmod +x ./energy-weather-database/main.sh && ./energy-weather-database/main.sh```
+
+This runs the entire pipeline, including the generation of the PostgreSQL database. For this reason it is necessary to have PostgreSQL credentials configured in a `db_config.json` file in the root directory.
