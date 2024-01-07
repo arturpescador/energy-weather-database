@@ -6,6 +6,8 @@ This project aims to develop a well-structured dataset.
 
 This repository is organized as follows:
 
+- dataset: Contains both data sets: `energy_weather_related.csv` and `weather_events.csv`
+
 - `iea_api`: Contains scripts for accessing the International Energy Agency's API for energy consumption data.
 
 - `mapreduce/database_merger`: Includes scripts for merging datasets from different sources using MapReduce.
