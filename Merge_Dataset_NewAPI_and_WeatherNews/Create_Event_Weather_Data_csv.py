@@ -6,14 +6,18 @@ def create_csv(input_file_path,window_size):
 
     df_all = pd.read_csv(input_file_path)
 
+    col_list = []
+    for col in ['maxt', 'mint', 'avgt', 'hdd', 'cdd', 'pcpn', 'snow', 'snwd']:
+        col_list+=[f'day{day}_{col}' for day in range(-5, 1)]
+        col_list+=[f'day+{day}_{col}' for day in range(1, 6)]
+
     col1 =[f'day{day}_{col}' for day in range(-5, 1) for col in ['maxt', 'mint', 'avgt', 'hdd', 'cdd', 'pcpn', 'snow', 'snwd']]
 
     col2 = [f'day+{day}_{col}' for day in range(1,6) for col in ['maxt', 'mint', 'avgt', 'hdd', 'cdd', 'pcpn', 'snow', 'snwd']]
 
-    column_order = ['Date', 'Location', 'News'] + col1 + col2
 
     concat_df = pd.DataFrame()
-    column_order = ['Date', 'Location', 'News'] + [f'day{day}_{col}' for day in range(-5, 1) for col in ['maxt', 'mint', 'avgt', 'hdd', 'cdd', 'pcpn', 'snow', 'snwd']]+[f'day+{day}_{col}' for day in range(1,6) for col in ['maxt', 'mint', 'avgt', 'hdd', 'cdd', 'pcpn', 'snow', 'snwd']]
+    column_order = ['Date', 'Location', 'News'] + col_list
 
     for idx in df_all[~df_all['News'].isnull()].index:
         
