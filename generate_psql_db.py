@@ -79,6 +79,22 @@ if __name__ == "__main__":
 
         print("Table Energy created successfully.")
 
+        # Create news table
+        create_table_query = """
+            CREATE TABLE News (
+                id SERIAL PRIMARY KEY,
+                date VARCHAR(100),
+                city VARCHAR(100),
+                title TEXT
+            );
+            """
+        cur.execute(create_table_query)
+
+        # copy_query = """
+        #     COPY News(id, date, city, title)
+        #     FROM ./weather_news/
+        #     """
+
     except psycopg2.Error as e:
         print(f"An error occurred: {e}")
     finally:
