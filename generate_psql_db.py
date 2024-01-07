@@ -93,7 +93,7 @@ if __name__ == "__main__":
         cur.execute(create_table_query)
 
         cur_path = os.getcwd()
-        news_data_path = os.path.join(cur_path, "dataset", "weather_data.csv")
+        news_data_path = os.path.join(cur_path, "dataset", "weather_events.csv")
         copy_query = f"""
             COPY News(date, city, title)
             FROM '{news_data_path}'
