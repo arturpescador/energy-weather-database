@@ -15,8 +15,8 @@ def main():
         IEA_mean_idx = [2]
         IEA_means = [0] * 1
         IEA_nb = 0
-        WEATHER_mean_idx = [2, 3, 4, 5]
-        WEATHER_means = [0] * 4
+        WEATHER_mean_idx = [3, 4, 5]
+        WEATHER_means = [0] * 3
         WEATHER_nb = 0
         for item in items:
             li = item.split(",")

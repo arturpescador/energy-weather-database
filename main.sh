@@ -15,7 +15,7 @@ mv energy_weather_related.csv dataset/
 # Scrape Weather Data
 cd weather_news
 scrapy crawl weather_spd
-python process_data.py -i weather_data.json -o weather_events.csv.csv
+python process_data.py -i weather_data.json -o weather_events.csv
 
 # Move the Weather Data CSV
 mv weather_events.csv.csv ../dataset/

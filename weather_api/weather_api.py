@@ -7,17 +7,20 @@ API_ENTRYPOINT = "https://api.weather.com/v1"
 API_KEY = "e1f10a1e78da46f5b10a1e78da96f525"
 
 class Location(Enum):
-    NEW_YORK_CITY = ("KLGA:9:US", pytz.timezone("America/New_York"), "New York")
-    BUFFALO = ("KBUF:9:US", pytz.timezone("America/New_York"), "New York")
-    ROCHESTER = ("KROC:9:US", pytz.timezone("America/New_York"), "New York")
-    YONKERS = ("KTEB:9:US", pytz.timezone("America/New_York"), "New York")
-    SYRACUSE = ("KSYR:9:US", pytz.timezone("America/New_York"), "New York")
-    ALBANY = ("KALB:9:US", pytz.timezone("America/New_York"), "New York")
+    NEW_YORK_CITY = ("KLGA:9:US", pytz.timezone("America/New_York"), "New York", "New York City")
+    BUFFALO = ("KBUF:9:US", pytz.timezone("America/New_York"), "New York", "Buffalo")
+    ROCHESTER = ("KROC:9:US", pytz.timezone("America/New_York"), "New York", "Rochester")
+    YONKERS = ("KTEB:9:US", pytz.timezone("America/New_York"), "New York", "Yonkers")
+    SYRACUSE = ("KSYR:9:US", pytz.timezone("America/New_York"), "New York", "Syracuse")
+    ALBANY = ("KALB:9:US", pytz.timezone("America/New_York"), "New York", "Albany_NY")
 
-    def __init__(self, value, tz, id):
+    BURLINGTON_VT = ("KBTV:9:US", pytz.timezone("America/New_York"), "New England", "Burlington_VT")
+
+    def __init__(self, value, tz, id, loc_str):
         self._value_ = value
         self.tz = tz
         self.id = id
+        self.loc_str = loc_str
 
 def get_weather_timeserie(fro: datetime.date, to: datetime.date, location: Location):
     assert fro <= to, "fro must be before to"

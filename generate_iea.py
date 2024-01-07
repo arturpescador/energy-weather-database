@@ -15,3 +15,4 @@ if __name__ == "__main__":
     to = datetime.datetime.strptime(args.to, "%Y-%m-%d").date()
     ts = datetime.timedelta(days = args.time_step)
     iea_api.database_maker.database_maker(fro, to, ts, iea_api.iea_api.Precision.HOURLY, iea_api.iea_api.Region.NEW_YORK)
+    iea_api.database_maker.database_maker(fro, to, ts, iea_api.iea_api.Precision.HOURLY, iea_api.iea_api.Region.NEW_ENGLAND)
