@@ -1,13 +1,22 @@
 # Weather News Database
 
-- `process_data.py`: A script for processing the scraped data and storing it in csv format.
+## Usage
 
-To run the script, use the following command:
+### Running the Scrapy Spider
 
 ```bash
-python process_data.py -i <input_file> -o <output_file>
+scrapy crawl weather_spd
 ```
-    
 
+### Running the Data Processing Script
 
-where `<input_file>` is the path to the scraped data file and `<output_file>` is the path to the output csv file.
+```bash
+python process_data.py -i weather_data.json -o weather_data.csv
+```
+
+### Running Both Scraping and Data Processing
+
+```bash
+chmod +x run_spider.sh
+./run_spider.sh
+```
