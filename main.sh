@@ -18,7 +18,7 @@ scrapy crawl weather_spd
 python process_data.py -i weather_data.json -o weather_events.csv
 
 # Move the Weather Data CSV
-mv weather_events.csv.csv ../dataset/
+mv weather_events.csv ../dataset/
 
 # Return to the original directory
 cd ..
