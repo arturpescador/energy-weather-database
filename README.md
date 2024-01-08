@@ -32,14 +32,6 @@ This repository is organized as follows:
 
 - `quality_assessment.py`: Python script to assess the quality of merged datasets.
 
-## Contributors
-
-This project was developed by the following group members as part of the Data Aquisition, Extraction, and Storage course at Université Paris Dauphine - PSL for the academic year 2023/2024:
-
-- Artur Dandolini Pescador
-- Caio Azevedo
-- Jacques Xu
-- Joseph Amigo
 
 ## Usage
 
